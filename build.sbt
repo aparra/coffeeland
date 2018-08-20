@@ -6,6 +6,7 @@ lazy val core = libProject("core")
 lazy val fiveElephant = playProject("five-elephant")
   .settings(version := "0.0.1")
   .dependsOn(core)
+  .settings(libraryDependencies += guice)
 
 lazy val theBarn = playProject("the-barn")
   .settings(version := "0.0.1")
