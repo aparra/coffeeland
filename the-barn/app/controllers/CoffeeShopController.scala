@@ -10,6 +10,6 @@ import scala.concurrent.ExecutionContext
 class CoffeeShopController @Inject()(barista: Barista)(implicit ec: ExecutionContext) extends InjectedController {
 
   def cappuccino: Action[AnyContent] = Action.async {
-    barista.prepareCappuccino().map(cappuccino => Ok(s"Enjoy your fancy ${cappuccino.name}! Made by Five Elephant."))
+    barista.prepareCappuccino().map(cappuccino => Ok(s"Enjoy your fancy ${cappuccino.name}! Made by The Barn."))
   }
 }
