@@ -16,5 +16,6 @@ lazy val theBarn = playProject("the-barn")
 lazy val starbucks = playProject("starbucks")
   .settings(version := "0.0.1")
   .dependsOn(core)
+  .settings(libraryDependencies += guice)
 
 lazy val root = project.in(file(".")).aggregate(core, fiveElephant, theBarn, starbucks)

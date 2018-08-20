@@ -4,11 +4,13 @@ import com.coffeeland.models.CoffeeDrinks.{Cappuccino, Espresso}
 import com.coffeeland.models.Milk.{FrothedMilk, LactoseFreeMilk}
 import com.coffeeland.models.Water
 import com.coffeeland.services.{EspressoMachine, Grinder, MilkSteamer, WaterKettle}
+import javax.inject.{Inject, Singleton}
 import models.PoorBlendedCoffeeBeans
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class Barista(implicit val ec: ExecutionContext) {
+@Singleton
+class Barista @Inject()(implicit val ec: ExecutionContext) {
 
   def prepareCappuccino(): Future[Cappuccino.type] = {
     val putEverythingTogether: (Espresso.type, FrothedMilk) => Cappuccino.type =
