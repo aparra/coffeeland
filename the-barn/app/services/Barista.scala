@@ -10,14 +10,17 @@ import models.TheBarnCoffeeBeans
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class Barista @Inject()(implicit val ec: ExecutionContext) {
+class Barista @Inject()(grinder: Grinder,
+                        waterKettle: WaterKettle,
+                        espressoMachine: EspressoMachine,
+                        milkSteamer: MilkSteamer)(implicit val ec: ExecutionContext) {
 
   def prepareCappuccino(): Future[Cappuccino.type] = {
     val combine: (Espresso.type, FrothedMilk) => Cappuccino.type =
       (espresso, foam) => Cappuccino
 
     val promiseEspresso = prepareEspresso()
-    val promiseFoam     = MilkSteamer.frothMilk(OatMilk)
+    val promiseFoam     = milkSteamer.frothMilk(OatMilk)
 
     for {
       espresso <- promiseEspresso
@@ -27,8 +30,8 @@ class Barista @Inject()(implicit val ec: ExecutionContext) {
 
   def prepareEspresso(): Future[Espresso.type] =
     for {
-      water    <- WaterKettle.heat(Water(temperature = 20))
-      ground   <- Grinder.grind(TheBarnCoffeeBeans)
-      espresso <- EspressoMachine.brew(ground, water)
+      water    <- waterKettle.heat(Water(temperature = 20))
+      ground   <- grinder.grind(TheBarnCoffeeBeans)
+      espresso <- espressoMachine.brew(ground, water)
     } yield espresso
 }
