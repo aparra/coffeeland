@@ -3,6 +3,7 @@ import PlayKeys._
 
 lazy val core = libProject("core")
   .settings(version := "0.0.1")
+  .settings(libraryDependencies += Dependencies.javaxInject)
 
 lazy val fiveElephant = playProject("five-elephant")
   .settings(version := "0.0.1")
