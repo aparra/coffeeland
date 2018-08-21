@@ -1,10 +1,12 @@
 package com.coffeeland.services
 
 import com.coffeeland.models.Water
+import javax.inject.{Inject, Singleton}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object WaterKettle {
+@Singleton
+class WaterKettle @Inject()() {
 
   def heat(water: Water)(implicit ec: ExecutionContext): Future[Water] =
     Future {

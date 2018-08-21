@@ -1,10 +1,12 @@
 package com.coffeeland.services
 
 import com.coffeeland.models.Milk.{FrothedMilk, Milk}
+import javax.inject.{Inject, Singleton}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object MilkSteamer {
+@Singleton
+class MilkSteamer @Inject()() {
 
   def frothMilk(milk: Milk)(implicit ec: ExecutionContext): Future[FrothedMilk] =
     Future {
